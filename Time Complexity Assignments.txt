@@ -1,0 +1,263 @@
+9.Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Note that you must do this in-place without making a copy of the array.
+
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        
+        int n=nums.length;
+        
+        int count=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]!=0)
+            {
+                nums[count++]=nums[i];
+            }
+            
+        }
+          while(count<n)
+          {
+              nums[count++]=0;
+          }
+    }
+}
+
+8.Alice and Bob have a different total number of candies.
+You are given two integer arrays aliceSizes and bobSizes where aliceSizes[i] is the number of candies of the ith box of candy that Alice has and bobSizes[j] is the number of candies of the jth box of candy that Bob has.
+Since they are friends, they would like to exchange one candy box each so that after the exchange, they both have the same total amount of candy. The total amount of candy a person has is the sum of the number of candies in each box they have.
+Return an integer array answer where answer[0] is the number of candies in the box that Alice must exchange, and answer[1] is the number of candies in the box that Bob must exchange. If there are multiple answers, you may return any one of them. It is guaranteed that at least one answer exists.
+
+class Solution {
+    public int[] fairCandySwap(int[] aliceSizes, int[] bobSizes) {
+        
+        int a_sum=0;
+        int b_sum=0;
+       //int[] answer= new int[2];
+        
+        for(int i=0;i<aliceSizes.length;i++)
+        {
+            
+                a_sum=a_sum+aliceSizes[i];
+                
+                
+        }
+        for(int j=0;j<bobSizes.length;j++)
+                
+        {
+               b_sum=b_sum+bobSizes[j];
+            
+        }
+        int diff=(a_sum-b_sum)/2;
+        
+        for(int i=0;i<aliceSizes.length;i++)
+        {
+            for(int j=0;j<bobSizes.length;j++)
+                
+        {
+                if(aliceSizes[i]-bobSizes[j]==diff)
+                {
+                    int[] answer={aliceSizes[i],bobSizes[j]};
+                    return new int[]{aliceSizes[i],bobSizes[j]};// Both return methods can be used
+                   // return answer;
+                    
+                }
+         
+            }
+            
+        }
+        return null;
+        
+    }
+         
+    
+}
+
+
+7.Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+class Solution {
+    public int majorityElement(int[] nums) {
+         int n = nums.length;
+  for (int curr : nums) {
+    int count = 0;
+    for (int val : nums) {
+      if (curr == val) {
+        count += 1;
+      }
+    }
+    if (count > n / 2) {
+      return curr;
+    }
+  }
+  return -1;
+    }
+}
+
+
+6.Given a 2D integer array matrix, return the transpose of matrix.
+
+The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+
+class Solution {
+    public int[][] transpose(int[][] A) {
+    int[][] B = new int[A[0].length][A.length];
+        
+        for(int i=0;i<A.length;i++)
+        {
+            for(int j=0;j<A[0].length;j++)
+            {
+                B[j][i]=A[i][j];
+            }
+        }
+        return B;
+}
+}
+
+
+5.Given an integer array arr, return true if there are three consecutive odd numbers in the array. Otherwise, return false.
+
+ class Solution {
+    public boolean threeConsecutiveOdds(int[] arr) {
+        
+        for(int i=0;i<arr.length;i++)
+        {
+             if (i + 2 < arr.length)
+             {
+            if(arr[i]%2!=0 && arr[i+1]%2!=0 && arr[i+2]%2!=0)
+            {
+                return true;
+            }
+           
+        }
+        }
+        
+        return false;
+        
+    }
+}
+
+4.Given an array of distinct integers arr, find all pairs of elements with the minimum absolute difference of any two elements.
+
+Return a list of pairs in ascending order(with respect to pairs), each pair [a, b] follows
+
+a, b are from arr
+a < b
+b - a equals to the minimum absolute difference of any two elements in arr
+
+class Solution {
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+         Arrays.sort(arr);
+
+        
+
+       int min=Integer.MAX_VALUE;
+
+       List<List<Integer>> result=new ArrayList<>(); 
+
+        
+
+        for(int i=1;i<arr.length;i++){
+
+           min=Math.min(arr[i]-arr[i-1],min);
+
+        }
+
+        
+
+        for(int i=1;i<arr.length;i++){
+
+            if(Math.abs(arr[i]-arr[i-1])==min){
+
+                List<Integer> list=new ArrayList<>();
+
+                list.add(Math.min(arr[i],arr[i-1]));
+
+                list.add(Math.max(arr[i],arr[i-1]));
+
+                result.add(list);
+
+            }   
+
+        }
+
+        return result;
+        
+    }
+}
+
+
+3.You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
+
+Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) {
+        
+        int answer=0;
+        for(int i=0;i<jewels.length();i++)
+        {
+            for(int j=0;j<stones.length();j++)
+            {
+                if(jewels.charAt(i)==stones.charAt(j))
+                {
+                    answer++;
+                }
+            }
+        }
+        return answer;
+        
+    }
+}
+
+
+
+2.Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+
+Return the running sum of nums.
+
+class Solution {
+    public int[] runningSum(int[] nums) {
+        int []sum= new int[nums.length];
+        int rs=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            rs=rs+nums[i];
+            sum[i]=rs;
+        }
+        return sum;
+        
+    }
+}
+
+
+1.You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the i​​​​​​​​​​​th​​​​ customer has in the j​​​​​​​​​​​th​​​​ bank. Return the wealth that the richest customer has.
+
+A customer's wealth is the amount of money they have in all their bank accounts. The richest customer is the customer that has the maximum wealth.
+
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        
+        int wealth=1;
+        
+        for(int i=0;i<accounts.length;i++)
+        { 
+            int temp=0;
+            for(int j=0;j<accounts[i].length;j++)
+            {
+                temp+=accounts[i][j];
+            }
+            if(temp>wealth)
+            {
+                wealth=temp;
+            }
+        }
+        return wealth;
+    }
+        
+    }
+
